@@ -1,13 +1,8 @@
 package com.github.zipcodewilmington;
 
-/**
- * @author xtofer
- * @version 1.0.0
- * @date 10/21/19 9:05 AM
- */
-public class DashaMapOne extends DashaMap<String, Integer> implements HashMapX<String, Integer> {
+public class DashaMapTwo extends DashaMap<String, Integer> implements HashMapX<String, Integer> {
 
-    public DashaMapOne() {
+    public DashaMapTwo() {
         super(26);
         SinglyLinkedList<String, Integer>[] map = super.getMap();
         for (int i = 0; i < map.length; i++) {
@@ -16,13 +11,11 @@ public class DashaMapOne extends DashaMap<String, Integer> implements HashMapX<S
         }
 
     }
-    @Override
+
     public Integer hash(String input) {
         if (input.length() > 0) {
-            return Character.toLowerCase(input.charAt(0)) - 'a';
+            return Character.toLowerCase(input.charAt(1)) - 'a';
         }
         return null;
     }
-
-
 }

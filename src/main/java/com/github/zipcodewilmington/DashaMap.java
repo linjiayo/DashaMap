@@ -46,7 +46,7 @@ public abstract class DashaMap<K extends Comparable<K>, V> implements HashMapX<K
     @Override
     public boolean isEmpty() {
         for (int i = 0; i < map.length; i++) {
-            if (map[i].getListHead() != null) {
+            if (this.size() > 0) {
                 return false;
             }
         }
@@ -57,7 +57,7 @@ public abstract class DashaMap<K extends Comparable<K>, V> implements HashMapX<K
     public int size() {
         int count = 0;
         for (int i = 0; i < map.length; i++) {
-            count += map[i].size();
+            count += map[i].size() - 1;
         }
         return count;
     }
@@ -67,4 +67,6 @@ public abstract class DashaMap<K extends Comparable<K>, V> implements HashMapX<K
         Integer idx = this.hash(key);
         return map[idx].size() - 1;
     }
+
+    public abstract Integer hash(String input);
 }
