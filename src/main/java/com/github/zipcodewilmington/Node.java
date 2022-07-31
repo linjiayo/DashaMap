@@ -3,7 +3,7 @@ package com.github.zipcodewilmington;
 public class Node<K, V> {
     private K key;
     private V val;
-    private Node<K, V> next;
+    protected Node<K, V> next;
 
     public Node(K key, V val) {
         this.key = key;
@@ -25,6 +25,7 @@ public class Node<K, V> {
     public void setVal(V val) {
         this.val = val;
     }
+
 
 
 }

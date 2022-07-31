@@ -1,49 +1,70 @@
 package com.github.zipcodewilmington;
 
-public abstract class DashaMap<K, V> implements HashMapX<K, V> {
-    private Node<K, V>[] map;
+public abstract class DashaMap<K extends Comparable<K>, V> implements HashMapX<K, V> {
+    private SinglyLinkedList<K, V>[] map;
 
     @SuppressWarnings({"unchecked"})
     public DashaMap(int initialSize) {
-        // manual cast as in HashMap
-        map = (Node<K, V>[]) new Node[initialSize];
+        map = new SinglyLinkedList[initialSize];
     }
 
-    public Node<K, V>[] getMap() {
+    public SinglyLinkedList<K, V>[] getMap() {
         return map;
     }
-    @Override
-    public K hash(K input) {
-        return input;
+    public Integer hash(K input) {
+        return null;
     }
     @Override
     public void set(K key, V value) {
-
+        Integer idx = this.hash(key);
+        // check if key exists
+        Node<K, V> existNode = map[idx].getNodeByKey(key);
+        if (existNode != null) {
+            existNode.setVal(value);
+            return;
+        }
+        map[idx].add(new Node<>(key, value));
     }
 
     @Override
-    public String delete(K key) {
-        return null;
+    public Boolean delete(K key) {
+        Integer idx = this.hash(key);
+        int keyIdx = map[idx].find(key);
+        if (keyIdx > -1) {
+            map[idx].remove(keyIdx);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public String get(K key) {
-        return null;
+    public V get(K key) {
+        Integer idx = this.hash(key);
+        return map[idx].getNodeByKey(key).getVal();
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        for (int i = 0; i < map.length; i++) {
+            if (map[i].getListHead() != null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
-    public long size() {
-        return 0;
+    public int size() {
+        int count = 0;
+        for (int i = 0; i < map.length; i++) {
+            count += map[i].size();
+        }
+        return count;
     }
 
     @Override
-    public boolean bucketSize(K key) {
-        return false;
+    public int bucketSize(K key) {
+        Integer idx = this.hash(key);
+        return map[idx].size() - 1;
     }
-
 }

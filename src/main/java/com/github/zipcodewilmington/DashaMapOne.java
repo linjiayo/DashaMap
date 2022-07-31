@@ -5,19 +5,19 @@ package com.github.zipcodewilmington;
  * @version 1.0.0
  * @date 10/21/19 9:05 AM
  */
-public class DashaMapOne extends DashaMap<String, Integer> implements HashMapX<String, Integer> {
+public class DashaMapOne extends DashaMap<Character, Integer> implements HashMapX<Character, Integer> {
 
     public DashaMapOne() {
         super(26);
-        Node<String, Integer>[] map = super.getMap();
+        SinglyLinkedList<Character, Integer>[] map = super.getMap();
         for (int i = 0; i < map.length; i++) {
-
+            map[i].setListHead(new Node<>((char) ('a' + i), 0));
         }
 
     }
-    private String HashFunctionOne(String input) {
+    public Integer hash(String input) {
         if (input.length() > 0) {
-            return String.valueOf(input.charAt(0)).toLowerCase();
+            return Character.toLowerCase(input.charAt(0)) - 'a';
         }
         return null;
     }

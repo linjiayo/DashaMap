@@ -8,12 +8,12 @@ package com.github.zipcodewilmington;
 public interface HashMapX<K, V> {
     // fundamentals
     void set(K key, V value);
-    String delete(K key);
-    String get(K key);
+    Boolean delete(K key);
+    V get(K key);
     boolean isEmpty();
-    long size();
-    K hash(K input);
+    int size();
+    Integer hash(K input);
 
     // testing access
-    boolean bucketSize(K key); // used for tests
+    int bucketSize(K key); // used for tests
 }
